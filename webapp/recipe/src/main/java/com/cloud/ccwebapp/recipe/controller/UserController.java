@@ -22,8 +22,16 @@ public class UserController {
 
     @RequestMapping(method= RequestMethod.POST, value="/user")
     public User addUser(@RequestBody User user, HttpServletResponse response) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        // check if user is present
+      Optional dbRecord = userRepository.findUserByEmailaddress(user.getEmailaddress());
+      if (dbRecord.isPresent()) {
+         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+         return user;
+        }
+        else {
+           user.setPassword(passwordEncoder.encode(user.getPassword()));
+           return userRepository.save(user);
+        }
     }
 
     @GetMapping("/user/self")
