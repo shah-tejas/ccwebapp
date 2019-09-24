@@ -29,8 +29,8 @@ public class UserController {
          return user;
         }
         else {
-           user.setPassword(passwordEncoder.encode(user.getPassword()));
-           return userRepository.save(user);
+          user.setPassword(passwordEncoder.encode(user.getPassword()));
+            return userRepository.save(user);
         }
     }
 

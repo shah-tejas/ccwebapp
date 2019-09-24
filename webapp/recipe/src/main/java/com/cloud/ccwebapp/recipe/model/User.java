@@ -4,14 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.beans.factory.annotation.Value;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Objects;
 
@@ -29,6 +25,7 @@ public class User {
     //@Size(min = 2, max = 30)
     @JsonIgnore
     private String password;
+
 
     @NotEmpty(message = "Email address shouldn't be left blank")
     @JsonProperty("email_address")
