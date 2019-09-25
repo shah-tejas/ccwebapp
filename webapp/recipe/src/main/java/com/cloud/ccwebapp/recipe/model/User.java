@@ -4,12 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity(name = "User_Table")
 public class User {
@@ -26,18 +24,18 @@ public class User {
     @JsonIgnore
     private String password;
 
-
     @NotEmpty(message = "Email address shouldn't be left blank")
     @JsonProperty("email_address")
+    @Pattern(regexp = "^(.+)@(.+)$")
     private String emailaddress;
 
     @CreationTimestamp
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "account_created")
     private Date account_created;
 
     @UpdateTimestamp
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "account_updated")
     private Date account_updated;
 
@@ -110,17 +108,5 @@ public class User {
 
     public void setAccount_updated(Date account_updated) {
         this.account_updated = account_updated;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return id == user.id &&
-                Objects.equals(first_name, user.first_name) &&
-                Objects.equals(last_name, user.last_name) &&
-                Objects.equals(password, user.password) &&
-                emailaddress.equals(user.emailaddress);
     }
 }
